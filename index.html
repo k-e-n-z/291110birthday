@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eee8dc"><title>رحلة إلى رسالة | Private Journey</title>
+<style>
+:root{--bg:#eee8dc;--paper:#faf7ef;--ink:#34372f;--muted:#77786d;--olive:#68715b;--olive2:#46513f;--gold:#b49362;--line:#d8d0c1;--rose:#b98478}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Times New Roman",serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.1;z-index:9;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E")}
+.wrap{width:min(940px,calc(100% - 32px));margin:auto}.top{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{font-size:12px;letter-spacing:.14em;color:var(--olive2)}.edition{font:10px Arial,sans-serif;letter-spacing:.13em;color:var(--muted)}
+main{padding:38px 0 65px}.screen{animation:appear .65s ease both}@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.kicker{font:10px Arial,sans-serif;letter-spacing:.2em;color:var(--olive);text-transform:uppercase;text-align:center}
+h1{font-size:clamp(36px,7vw,62px);font-weight:400;line-height:1.18;text-align:center;margin:14px 0;color:#383a32}h1 em{font-style:normal;color:var(--olive)}.sub{text-align:center;color:var(--muted);font-size:16px;line-height:1.9;max-width:570px;margin:0 auto 27px}
+.btn{border:1px solid var(--olive2);background:var(--olive2);color:#fffdf7;padding:13px 24px;font-size:13px;transition:.2s}.btn:hover{background:#59664f;transform:translateY(-2px)}.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}.btn.ghost{background:transparent;color:var(--olive2)}.center{text-align:center}.tiny{font-size:12px;color:var(--muted);line-height:1.8}
+.card{background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 55px #51493612}
+.envelope-stage{display:grid;place-items:center;min-height:440px;margin-top:5px}.envelope{width:min(390px,88vw);height:250px;position:relative;cursor:pointer;filter:drop-shadow(0 18px 22px #51493622);transition:.3s}
+.env-back{position:absolute;inset:0;background:#d8cbb4;border:1px solid #c6b99f}.env-front{position:absolute;inset:0;background:linear-gradient(145deg,#e8ddc9,#d7c8ae);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
+.env-flap{position:absolute;inset:0;background:#cdbb9e;clip-path:polygon(0 0,100% 0,50% 59%);transform-origin:top;transition:transform .8s;z-index:3}
+.seal{position:absolute;z-index:4;left:50%;top:58%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:var(--olive);color:#f5eddf;display:grid;place-items:center;border:3px double #d7c7a8;font-size:22px}
+.env-note{position:absolute;z-index:1;left:8%;right:8%;bottom:12px;height:82%;background:#faf7ef;border:1px solid #d7cebd;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:transform .8s}.env-note strong{font-size:25px;font-weight:400}.env-note small{margin-top:10px;color:var(--muted);font-size:11px}
+.envelope.open .env-flap{transform:rotateX(180deg);z-index:0}.envelope.open .seal{opacity:0;transition:.2s}.envelope.open .env-note{transform:translateY(-90px)}
+.password-box{max-width:360px;margin:0 auto;padding:27px}.password-box label{display:block;text-align:right;font-size:13px;margin-bottom:9px;color:var(--muted)}input{width:100%;background:#fffdf8;border:1px solid var(--line);padding:13px;color:var(--ink);outline:none}input:focus{border-color:var(--olive)}.password-box input{text-align:center;letter-spacing:.13em;margin-bottom:13px}.error{color:#a45f54;font-size:12px;min-height:20px;margin:8px 0}
+.progress{height:3px;background:#ded8cc;margin:22px auto 30px;max-width:560px}.progress span{display:block;height:100%;background:var(--olive);width:0;transition:.4s}
+.quiz-card{max-width:650px;margin:0 auto;padding:clamp(22px,5vw,42px)}.question-no{font:10px Arial,sans-serif;letter-spacing:.15em;color:var(--gold)}.question{font-size:29px;font-weight:400;line-height:1.5;margin:13px 0 23px}
+.answers{display:grid;gap:10px}.answer{border:1px solid var(--line);background:#f7f3ea;padding:14px 17px;text-align:right;color:var(--ink);transition:.2s}.answer:hover{border-color:var(--olive);background:#efeee5}.answer.selected{border-color:var(--olive);background:#e7e9df;box-shadow:inset -3px 0 var(--olive)}
+.quiz-actions{display:flex;justify-content:space-between;align-items:center;margin-top:25px;gap:10px}
+.flight-card{max-width:650px;margin:0 auto;padding:clamp(22px,5vw,42px)}.flight-title{font-size:34px;font-weight:400;text-align:center;margin:10px 0}
+.ticket-meta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:18px 0}.meta-pill{border:1px solid var(--line);padding:9px 14px;background:#f5f1e8;font-size:13px;color:var(--olive2)}.meta-pill b{font-weight:400;color:var(--gold);margin-left:5px}
+.route{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:20px 0;color:var(--olive2)}.route strong{font-size:22px;font-weight:400}.route small{display:block;font:9px Arial,sans-serif;letter-spacing:.15em;color:var(--muted);margin-top:5px}
+.flight-scene{max-width:850px;margin:20px auto 0;padding:22px;background:#e5e5d9;border:1px solid #cfd0c2;position:relative;overflow:hidden}.map-label{font:10px Arial,sans-serif;letter-spacing:.15em;color:#777d6c;text-align:center}
+.map{height:340px;position:relative;margin-top:12px;background:linear-gradient(155deg,#e9eadf,#dce3d5);border:1px solid #c8d0c1;overflow:hidden}
+.map:before{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(25deg,transparent 0 47px,#cbd4c3 48px 49px,transparent 50px 90px),repeating-linear-gradient(110deg,transparent 0 75px,#cbd4c3 76px 77px,transparent 78px 130px);opacity:.65}
+.land{position:absolute;border-radius:48% 52% 44% 56%;background:#d0dac9;opacity:.8}.land.l1{width:190px;height:100px;left:4%;top:10%;transform:rotate(-25deg)}.land.l2{width:210px;height:115px;right:7%;bottom:7%;transform:rotate(22deg)}.land.l3{width:120px;height:80px;left:43%;top:43%;transform:rotate(14deg)}
+.map-place{position:absolute;z-index:2;font:10px Arial,sans-serif;color:#697360;white-space:nowrap}.map-place:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:#89957c;margin-left:5px;vertical-align:middle}
+.route-line{position:absolute;z-index:2;left:9%;right:10%;top:54%;border-top:2px dashed #a78b60;transform:rotate(-11deg);transform-origin:center}
+.station{position:absolute;top:51%;width:12px;height:12px;border-radius:50%;background:var(--olive);border:2px solid #f8f5eb;z-index:3}.station.start{left:9%}.station.end{right:10%;background:var(--gold)}
+.station-label{position:absolute;top:57%;font:9px Arial,sans-serif;color:#59604f;z-index:3}.station-label.a{left:5%}.station-label.b{right:6%}
+.plane{position:absolute;z-index:4;left:9%;top:43%;font-size:29px;transform:rotate(-12deg);transition:left 5s cubic-bezier(.2,.7,.2,1),top 5s cubic-bezier(.2,.7,.2,1)}.flight-scene.flying .plane{left:87%;top:27%}
+.arrival{font-size:15px;color:var(--olive2);text-align:center;margin:14px 0 0}
+.letter{max-width:730px;margin:0 auto;padding:clamp(25px,6vw,55px);background:#faf7ef;border:1px solid #d8cebc;box-shadow:0 18px 55px #51493612;position:relative}.letter:before{content:"";position:absolute;inset:10px;border:1px solid #e5ddcf;pointer-events:none}.letter .date{text-align:left;color:var(--gold);font-size:12px}.letter h2{text-align:center;font-size:34px;font-weight:400;margin:24px 0}.letter p{font-size:18px;line-height:2.05;color:#55564e;white-space:pre-line}.signature{text-align:left;font-size:19px;color:var(--olive);margin-top:30px}
+.birthday{max-width:760px;margin:0 auto;text-align:center}.cake-wrap{height:245px;display:grid;place-items:center;margin:12px 0 20px}.cake{position:relative;width:210px;height:150px}.plate{position:absolute;bottom:8px;left:0;width:210px;height:17px;border-radius:50%;background:#c8c1ae;box-shadow:0 5px 0 #a9a18e}.cake-body{position:absolute;bottom:22px;left:25px;width:160px;height:90px;background:#e6d3b9;border-radius:8px 8px 18px 18px;box-shadow:inset 0 -10px #c99e83}.icing{position:absolute;top:36px;left:25px;width:160px;height:29px;background:#f7eee0;border-radius:50% 50% 9px 9px}.icing:after{content:"";position:absolute;left:15px;right:15px;top:12px;height:28px;background:radial-gradient(ellipse at 10% 0,#f7eee0 0 8px,transparent 9px),radial-gradient(ellipse at 50% 0,#f7eee0 0 8px,transparent 9px),radial-gradient(ellipse at 90% 0,#f7eee0 0 8px,transparent 9px)}.candle{position:absolute;left:101px;top:0;width:8px;height:39px;background:repeating-linear-gradient(135deg,#8c9679 0 5px,#f7eee0 5px 10px);z-index:2}.flame{position:absolute;left:99px;top:-20px;width:12px;height:20px;background:#d6a45d;border-radius:70% 20% 70% 20%;transform:rotate(45deg);animation:flicker .8s infinite alternate}@keyframes flicker{to{transform:rotate(35deg) scale(.85);opacity:.8}}
+.birthday h2{font-size:clamp(36px,7vw,56px);font-weight:400;margin:0 0 10px}.birthday p{font-size:17px;line-height:2;color:var(--muted);max-width:540px;margin:0 auto}.confetti{font-size:23px;letter-spacing:14px;color:var(--gold);margin:12px}.footer{text-align:center;color:#929184;font:9px Arial,sans-serif;letter-spacing:.16em;margin-top:38px}
+
+/* Curved, responsive flight route */
+.flight-path{position:absolute;inset:0;width:100%;height:100%;z-index:4;overflow:visible;pointer-events:none}
+.path-base{fill:none;stroke:#a78b60;stroke-width:2.2;opacity:.35}
+.path-dashes{fill:none;stroke:#a78b60;stroke-width:2.5;stroke-dasharray:7 8;stroke-linecap:round}
+.path-dot{fill:var(--olive);stroke:#f8f5eb;stroke-width:3}
+.path-dot.destination{fill:var(--gold)}
+.moving-plane{font-size:28px;fill:#46513f;paint-order:stroke;stroke:#f5f1e8;stroke-width:1px}
+.station,.route-line{display:none}
+.station-label{z-index:5;top:auto}
+.station-label.a{left:5%;bottom:24%}.station-label.b{right:5%;top:47%}
+/* A softer, more charming birthday cake */
+.cake.cute-cake{width:230px;height:175px}
+.cute-cake .plate{left:0;bottom:7px;width:230px;height:18px;background:#d9cbb8;box-shadow:0 5px 0 #b8a890}
+.cute-cake .cake-body{left:28px;bottom:25px;width:174px;height:83px;border-radius:12px 12px 18px 18px;background:linear-gradient(90deg,#e9cbbd,#f1d9ca 50%,#e8c5b5);box-shadow:inset 0 -9px #d5a997}
+.cute-cake .cake-top{position:absolute;z-index:2;left:28px;top:44px;width:174px;height:32px;border-radius:50%;background:#fff2e8;border:2px solid #f5e2d5}
+.cute-cake .cake-body:before{content:"";position:absolute;left:0;right:0;top:-5px;height:20px;border-radius:50%;background:#fff2e8}
+.cute-cake .drip{position:absolute;z-index:2;top:0;width:16px;height:25px;background:#fff2e8;border-radius:0 0 10px 10px}
+.cute-cake .d1{left:28px;height:19px}.cute-cake .d2{left:82px;height:27px}.cute-cake .d3{right:25px;height:20px}
+.berry{position:absolute;color:#c77d78;font-size:15px;top:4px}.b1{left:25px}.b2{left:78px;top:0}.b3{right:25px}
+.flower{position:absolute;color:#d5ad65;font-size:15px;top:6px}.f1{left:51px}.f2{right:51px}
+.cute-cake .candle{left:111px;top:7px;width:8px;height:35px;border-radius:4px;background:repeating-linear-gradient(135deg,#87977a 0 5px,#fff1e4 5px 10px)}
+.cute-cake .flame{left:109px;top:-13px;width:12px;height:18px;background:#e9b65e;box-shadow:0 0 15px #e9b65e88}
+.cake-pearl{position:absolute;z-index:3;width:6px;height:6px;border-radius:50%;background:#fff1e6;bottom:13px}
+.p1{left:20px}.p2{left:48px}.p3{left:82px}.p4{right:48px}.p5{right:20px}
+@media(max-width:650px){.top{height:60px}.edition{font-size:8px}.envelope-stage{min-height:380px}.question{font-size:24px}.map{height:290px}.flight-scene{padding:12px}.route strong{font-size:18px}.letter p{font-size:17px}.quiz-actions{align-items:flex-end}}
+</style>
+</head>
+<body><div class="noise"></div><div class="wrap">
+<header class="top"><div class="brand">✦ &nbsp; A PRIVATE LITTLE JOURNEY</div><div class="edition">29 NOVEMBER 2026 · VIP</div></header>
+<main>
+<section id="intro" class="screen"><div class="kicker">A little something, sealed with care</div><h1>هناك رسالة<br><em>في انتظارك.</em></h1><p class="sub">مش كل الرسائل بتوصل بالبريد… بعضها بيحتاج رحلة صغيرة، وشوية فضول، وكلمة سر.</p>
+<div class="envelope-stage"><div><div class="envelope" id="envelope" role="button" tabindex="0" aria-label="افتح الظرف"><div class="env-back"></div><div class="env-note"><strong>إلى شخص مميز</strong><small>PLEASE OPEN WITH CARE</small></div><div class="env-flap"></div><div class="env-front"></div><div class="seal">✦</div></div><p class="center tiny">اضغط على الظرف لفتحه</p></div></div></section>
+<section id="password" class="screen hidden"><div class="kicker">The first little secret</div><h1>قبل ما نبدأ…</h1><p class="sub">كل رسالة ليها مفتاحها. اكتب كلمة السر عشان نفتح أول باب.</p><div class="card password-box"><label for="pass">كلمة السر</label><input id="pass" type="password" placeholder="••••••••••" autocomplete="off"><button class="btn" id="unlock" style="width:100%">فتح الرسالة</button><p class="error" id="passError"></p></div></section>
+<section id="quiz" class="screen hidden"><div class="kicker">A few questions before takeoff</div><h1>نشوف <em>فاكر ولا لأ؟</em></h1><p class="sub">ثلاث محطات صغيرة قبل ما رحلتك تبدأ.</p><div class="progress"><span id="progress"></span></div><div class="card quiz-card"><div class="question-no" id="qNo">QUESTION 01 / 03</div><div class="question" id="question"></div><div class="answers" id="answers"></div><div class="quiz-actions"><span class="tiny" id="quizHint">اختار إجابة للمتابعة</span><button class="btn" id="nextQ" disabled>التالي ←</button></div></div></section>
+<section id="flight" class="screen hidden"><div class="kicker">Your private flight</div><h1>تم قبول <em>طلب الصعود.</em></h1><p class="sub">التذكرة اتجهزت مخصوص ليك. راجع بيانات رحلتك قبل الإقلاع.</p><div class="card flight-card"><div class="center tiny">PRIVATE FLIGHT · ONE WAY</div><div class="flight-title">Boarding Pass</div><div class="route"><div><strong>HERE</strong><small>DEPARTURE</small></div><div style="font-size:22px;color:var(--gold)">✈ ─ ─ ─</div><div><strong>THE LETTER</strong><small>DESTINATION</small></div></div>
+<div class="ticket-meta"><div class="meta-pill"><b>PASSENGER</b> ياسين محمود</div><div class="meta-pill"><b>SEAT</b> VIP</div><div class="meta-pill"><b>DATE</b> 29 / 11 / 2026</div></div><p class="tiny center">رحلة خيالية داخل التجربة — لا تمثل حجز طيران حقيقي.</p><div class="center" style="margin-top:22px"><button class="btn" id="checkin">تأكيد تسجيل الصعود</button></div></div></section>
+<section id="journey" class="screen hidden"><div class="kicker">Now boarding</div><h1>رحلتك <em>بدأت.</em></h1><p class="sub">خد مكانك… الطيارة في طريقها لمحطة الرسالة.</p><div class="flight-scene" id="flightScene"><div class="map-label">PRIVATE FLIGHT PATH · ROUTE 001</div><div class="map">
+<div class="land l1"></div><div class="land l2"></div><div class="land l3"></div>
+<span class="map-place" style="left:7%;top:17%">OLD TOWN</span><span class="map-place" style="left:27%;top:9%">NORTH GARDEN</span><span class="map-place" style="left:48%;top:18%">ROSE HILL</span><span class="map-place" style="right:7%;top:12%">THE LIGHTHOUSE</span><span class="map-place" style="left:12%;top:78%">RIVER SIDE</span><span class="map-place" style="left:34%;top:69%">OLIVE SQUARE</span><span class="map-place" style="left:57%;top:82%">QUIET BAY</span><span class="map-place" style="right:6%;top:72%">LETTER STATION</span><span class="map-place" style="left:69%;top:39%">THE OLD BRIDGE</span><span class="map-place" style="left:40%;top:43%">CYPRESS PARK</span><span class="map-place" style="left:18%;top:43%">WEST MEADOW</span><span class="map-place" style="right:24%;top:57%">GOLDEN FIELD</span><span class="map-place" style="left:53%;top:5%">MOON LAKE</span><span class="map-place" style="left:4%;top:58%">WINDMILL</span>
+<svg class="flight-path" viewBox="0 0 800 340" preserveAspectRatio="none" aria-hidden="true">
+<path class="path-base" d="M 65 185 C 130 65, 240 55, 315 175 S 470 290, 545 170 S 675 55, 735 140"/>
+<path class="path-dashes" d="M 65 185 C 130 65, 240 55, 315 175 S 470 290, 545 170 S 675 55, 735 140"/>
+<circle cx="65" cy="185" r="7" class="path-dot"/>
+<circle cx="735" cy="140" r="8" class="path-dot destination"/>
+<text class="moving-plane" x="-14" y="9">✈<animateMotion id="planeMotion" dur="6s" begin="indefinite" fill="freeze" path="M 65 185 C 130 65, 240 55, 315 175 S 470 290, 545 170 S 675 55, 735 140"/></text>
+</svg><span class="station-label a">DEPARTURE</span><span class="station-label b">LETTER STATION</span></div><p class="arrival" id="arrival">جاري الإقلاع…</p></div></section>
+<section id="letter" class="screen hidden"><div class="kicker">You have arrived</div><h1>وصلنا <em>لأهم نقطة.</em></h1><p class="sub">محطة الرسالة — خد وقتك واقراها براحتك.</p><article class="letter"><div class="date">A NOTE, JUST FOR YOU</div><h2>وصلنا لأهم يوم و أهم نقطة ..</h2><p id="letterText"></p><div class="signature">من كونثي</div></article><div class="center" style="margin-top:28px"><button class="btn" id="toBirthday">المحطة التالية ←</button></div></section>
+<section id="birthday" class="screen hidden"><div class="birthday"><div class="kicker">One more little surprise</div><div class="cake-wrap"><div class="cake cute-cake">
+<div class="flame"></div><div class="candle"></div>
+<div class="cake-top"><span class="berry b1">♥</span><span class="berry b2">♥</span><span class="berry b3">♥</span><span class="flower f1">✿</span><span class="flower f2">✿</span></div>
+<div class="cake-body"><span class="drip d1"></span><span class="drip d2"></span><span class="drip d3"></span><span class="cake-pearl p1"></span><span class="cake-pearl p2"></span><span class="cake-pearl p3"></span><span class="cake-pearl p4"></span><span class="cake-pearl p5"></span></div>
+<div class="plate"></div></div></div><div class="confetti">✧ ✦ ✧</div><h2>كل سنة وانت طيب يا ياسين!</h2><p>أتمنى سنتك الجديدة تكون مليانة راحة ونجاحات وضحك وذكريات حلوة… وتفضل دايمًا الشخص اللي وجوده بيخلّي الحكايات أحلى.</p><div style="margin-top:28px"><button class="btn ghost" id="replay">إعادة الرحلة من البداية</button></div></div></section>
+</main><div class="footer">MADE OF PAPER, MEMORIES & A LITTLE MAGIC</div></div>
+<script>
+const PASSWORD = "2010.11.29";
+const QUESTIONS = [
+ {text:"لو كانت حياتي رواية فهي ..... الاكثر جمالًا",options:["الفصل","الحكاية","الكتاب"],correct:"الفصل"},
+ {text:"لما بيبقا فيه مشكلة مع الاهل بنقول ...",options:["معلش زي اهلك","كبر دماغك","ولا يهمك"],correct:"معلش زي اهلك"},
+ {text:"حاجة مشتركة و ليها موقف مبيتنسيش .....",options:["صورة","مصاصة","هدية"],correct:"مصاصة"}
+];
+const LETTER = `وصلنا لأهم يوم و اهم نقطة .. مش عارفة ابدأ منين ولا اقول ايه بس يعني كل سنة وانت طيب .. اه بس كدا .. ممكن عشان متغاظة منك او ممكن عشان مش عارفة ارتب كلامي زي كل مرة و اقوله برغم ان دا معمول من بدري .. ف الاول مكنتش اتخيل اننا نوصل لهنا ، لو كان حد جه قاللي ان هيجي وقت ابقا فيه طالبة ف مبادرة مهمة و ان المبادرة دي هتعرفني ع شخص هيبقا الاخ الكبير اللي هرجعله دايما و احكيله و اقولله كل حاجة عن يومي بتفاصيله المملة جدًااااا اللي بردو لحد دلوقتي معرفش مزهقتش منها ازاي بس ما علينا بس انت فجأة بقا اسمك نسانيسو و فجأة تانية نثانيثو و يويو و ياثين و عمو و باندتي و فراولتي و حاجات كتير متعدش بقاا .. مش قادرة افهم اننا بقالنا سنتين اخوات و زمايل .. انا اللي كنت مبعرفش انطق حرف قدام ولد جيت و اديتك مصاصة و بشاركك أي حاجة جديدة بتعلمها و بعملها .
+بس وقتها فهمت انك فعلا بقيت شخص مهم جدا عندي حتى لو كنت متغاظة منك و حتى لو كنت انت عمو الرخم اللي كان عايزني اصحى الساعة 9 الصبح و صحي الساعة 11 اصلا`;
+let current=0,selected=null;
+const $=id=>document.getElementById(id);
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));$(id).classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+$("envelope").addEventListener("click",()=>{$("envelope").classList.add("open");setTimeout(()=>show("password"),850)});
+$("envelope").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("envelope").click()}});
+$("unlock").onclick=()=>{if($("pass").value===PASSWORD){current=0;show("quiz");renderQuestion()}else{$("passError").textContent="كلمة السر مش مظبوطة… جرّب تاني."}};
+$("pass").addEventListener("keydown",e=>{if(e.key==="Enter")$("unlock").click()});
+function renderQuestion(){const q=QUESTIONS[current];selected=null;$("qNo").textContent=`QUESTION ${String(current+1).padStart(2,"0")} / 03`;$("question").textContent=q.text;$("answers").innerHTML="";$("nextQ").disabled=true;$("nextQ").textContent=current===2?"إنهاء الاختيارات":"التالي ←";$("quizHint").textContent="اختار إجابة للمتابعة";$("progress").style.width=(current/3*100)+"%";
+q.options.forEach(opt=>{const b=document.createElement("button");b.className="answer";b.textContent=opt;b.onclick=()=>{if(opt!==q.correct){$("quizHint").textContent="مش دي الإجابة… فكّر وجرب تاني.";return}selected=opt;document.querySelectorAll(".answer").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");$("nextQ").disabled=false;$("quizHint").textContent="إجابة صحيحة — عاش!";};$("answers").appendChild(b)})}
+$("nextQ").onclick=()=>{if(!selected)return;current++;if(current<3)renderQuestion();else show("flight")};
+$("checkin").onclick=()=>{show("journey");$("arrival").textContent="الطيارة بتتحرك في مسارها…";setTimeout(()=>{const motion=$("planeMotion");if(motion&&motion.beginElement)motion.beginElement();$("arrival").textContent="في الطريق لمحطة الرسالة…";setTimeout(()=>{ $("arrival").textContent="وصلنا بالسلامة. محطة الرسالة بقت قريبة.";setTimeout(()=>{ $("letterText").textContent=LETTER;show("letter")},900)},6000)},250)};
+$("toBirthday").onclick=()=>show("birthday");
+$("replay").onclick=()=>{current=0;selected=null;$("pass").value="";$("passError").textContent="";$("flightScene").classList.remove("flying");$("envelope").classList.remove("open");$("progress").style.width="0";show("intro")};
+</script></body></html>
